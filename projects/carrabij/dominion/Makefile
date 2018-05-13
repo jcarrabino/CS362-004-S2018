@@ -83,11 +83,11 @@ unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2
 
 randomResults: randomResults
 	./randomtestadventurer 20 >> randomtestadventurer.out
+	gcov -f -b dominion.c >> randomtestadventurer.out
 	./randomtestcard1 20 >> randomtestcard1.out
+	gcov -f -b dominion.c >> randomtestcard1.out
 	./randomtestcard2 20 >> randomtestcard2.out
-	gcov -f -b randomtestadventurer.c >> randomtestadventurer.out
-	gcov -f -b randomtestcard1.c >> randomtestcard1.out
-	gcov -f -b randomtestcard2.c >> randomtestcard2.out
+	gcov -f -b dominion.c >> randomtestcard2.out
 
 randomTests:
 	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c randomtestcard1.c rngs.c -o randomtestcard1 -lm -g
