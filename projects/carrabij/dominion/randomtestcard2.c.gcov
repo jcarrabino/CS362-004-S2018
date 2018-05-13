@@ -1,0 +1,158 @@
+        -:    0:Source:randomtestcard2.c
+        -:    0:Graph:randomtestcard2.gcno
+        -:    0:Data:randomtestcard2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/******************************************************************
+        -:    2:*  Name: John Carrabino
+        -:    3:*  Class: CS362
+        -:    4:*  Assignment:  Village Random Test File
+        -:    5:******************************************************************/
+        -:    6:
+        -:    7:
+        -:    8:#include "dominion.h"
+        -:    9:#include "dominion_helpers.h"
+        -:   10:#include "rngs.h"
+        -:   11:#include <math.h>
+        -:   12:#include <stdio.h>
+        -:   13:#include <stdlib.h>
+        -:   14:#include <time.h>
+        -:   15:
+function initTestGame called 71 returned 100% blocks executed 100%
+       71:   16:void initTestGame(struct gameState *game) {
+        -:   17:  int i, player;
+       71:   18:  game->whoseTurn = rand() % 2;
+call    0 returned 100%
+        -:   19:  // Generate random hands, turns, decks, and discard
+       71:   20:  int maxRandHand = rand() % (500 + 1);
+call    0 returned 100%
+       71:   21:  int maxRandTurn = rand() % (16 + 1);
+call    0 returned 100%
+       71:   22:  int maxRandDeck = rand() % (500 + 1);
+call    0 returned 100%
+       71:   23:  int maxRandDiscard = rand() % (500 + 1);
+call    0 returned 100%
+        -:   24:
+       71:   25:  game->hand[game->whoseTurn][0] = 7;
+       71:   26:  game->handCount[game->whoseTurn] = maxRandHand;
+    18705:   27:  for(i = 1; i < game->handCount[game->whoseTurn]; i++)
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+    18634:   28:    game->hand[game->whoseTurn][i] = maxRandTurn;
+        -:   29:
+       71:   30:  game->deckCount[game->whoseTurn] = maxRandDeck;
+    17177:   31:  for(i = 0; i < game->deckCount[game->whoseTurn]; i++)
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+    17106:   32:    game->deck[game->whoseTurn][i] = maxRandTurn;
+        -:   33:
+       71:   34:  game->discardCount[game->whoseTurn] = maxRandDiscard;
+    18559:   35:  for(i = 0; i < game->discardCount[game->whoseTurn]; i++)
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+    18488:   36:    game->discard[game->whoseTurn][i] = maxRandTurn;
+        -:   37:
+        -:   38:  //Set up hand for an opponent
+       71:   39:  if(game->whoseTurn == 0)
+branch  0 taken 44% (fallthrough)
+branch  1 taken 56%
+       31:   40:    player = 1;
+        -:   41:  else
+       40:   42:    player = 0;
+        -:   43:
+       71:   44:  game->handCount[player] = maxRandHand;
+    18776:   45:  for(i = 0; i < game->handCount[player]; i++)
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+    18705:   46:    game->hand[player][i] = maxRandTurn;
+        -:   47:
+       71:   48:  game->deckCount[player] = maxRandDeck;
+    17177:   49:  for(i = 0; i < game->deckCount[player]; i++)
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+    17106:   50:    game->deck[player][i] = maxRandTurn;
+        -:   51:
+       71:   52:  game->discardCount[player] = maxRandDiscard;
+    18559:   53:  for(i = 0; i < game->discardCount[player]; i++)
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+    18488:   54:    game->discard[player][i] = maxRandTurn;
+       71:   55:}
+        -:   56:
+function main called 1 returned 100% blocks executed 90%
+        1:   57:int main() {
+        1:   58:	int count = 1;
+        1:   59:	srand(time(NULL));
+call    0 returned 100%
+call    1 returned 100%
+        1:   60:	int seed = rand() % 100 + 1;
+call    0 returned 100%
+        1:   61:  int loopCounter = rand() % 80 + 21;
+call    0 returned 100%
+        1:   62:	int players = 2;
+        -:   63:  int init_hand, result_hand, init_actions, result_actions;
+        -:   64:	struct gameState game;
+        1:   65:	int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall};
+        1:   66:	initializeGame(players, k, seed, &game);
+call    0 returned 100%
+        1:   67:	game.phase = 0;
+        1:   68:	game.numBuys = 1;
+        -:   69:    
+        -:   70:	int j;
+       72:   71:	for(j = 0; j < loopCounter; j++){
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+        -:   72:        
+       71:   73:        printf("|==================================================|\n");
+call    0 returned 100%
+       71:   74:        printf("|                 Random Test #%-3d                 |\n", count);
+call    0 returned 100%
+       71:   75:        printf("|--------------------------------------------------|\n");
+call    0 returned 100%
+       71:   76:		initTestGame(&game);
+call    0 returned 100%
+       71:   77:        game.numActions = 1;
+       71:   78:        printf("| Before Playing Village:                          |\n");
+call    0 returned 100%
+       71:   79:        printf("|    - Hand Count:        %4d                     |\n", game.handCount[game.whoseTurn]);
+call    0 returned 100%
+       71:   80:        printf("|    - Number of Actions: %4d                     |\n", game.numActions);
+call    0 returned 100%
+       71:   81:        init_actions = game.numActions;
+       71:   82:        init_hand = game.handCount[game.whoseTurn];
+       71:   83:        cardEffect(village, 0, 0, 0, &game, 0, 0);
+call    0 returned 100%
+       71:   84:        printf("|                                                  |\n");
+call    0 returned 100%
+       71:   85:        printf("| After Playing Village:                           |\n");
+call    0 returned 100%
+       71:   86:        printf("|    - Hand Count:        %4d                     |\n", game.handCount[game.whoseTurn]);
+call    0 returned 100%
+       71:   87:        printf("|    - Number of Actions: %4d                     |\n", game.numActions);
+call    0 returned 100%
+       71:   88:        result_actions = game.numActions;
+       71:   89:        result_hand = game.handCount[game.whoseTurn];
+       71:   90:        if (init_hand == result_hand && init_actions == result_actions-2){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+       71:   91:          printf("|--------------------------------------------------|\n");
+call    0 returned 100%
+       71:   92:          printf("|                 Test #%-3d PASSED                 |\n", count);
+call    0 returned 100%
+       71:   93:          printf("|==================================================|\n\n\n");        
+call    0 returned 100%
+        -:   94:        }
+        -:   95:        else {
+    #####:   96:          printf("|--------------------------------------------------|\n");
+call    0 never executed
+    #####:   97:          printf("|                Test #%-3d FAILED                  |\n", count);
+call    0 never executed
+    #####:   98:          printf("|==================================================|\n\n\n");
+call    0 never executed
+        -:   99:        }
+       71:  100:		count++;
+        -:  101:	}
+        1:  102:  return 0;
+        -:  103:}

@@ -1,0 +1,194 @@
+        -:    0:Source:randomtestadventurer.c
+        -:    0:Graph:randomtestadventurer.gcno
+        -:    0:Data:randomtestadventurer.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/******************************************************************
+        -:    2:*  Name: John Carrabino
+        -:    3:*  Class: CS362
+        -:    4:*  Assignment:  4 (Adventurer Random Test File)
+        -:    5:******************************************************************/
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include "rngs.h"
+        -:   10:#include <stdio.h>
+        -:   11:#include <stdlib.h>
+        -:   12:#include <string.h>
+        -:   13:#include <time.h>
+        -:   14:#include <assert.h>
+        -:   15:
+        -:   16:
+        -:   17:
+function main called 1 returned 100% blocks executed 96%
+        1:   18:int main() {
+        1:   19:    srand(time(NULL));
+call    0 returned 100%
+call    1 returned 100%
+        -:   20:	struct gameState game;
+        1:   21:    int count = 1;
+        1:   22:    int numTests = rand() % 80 + 21;
+call    0 returned 100%
+        1:   23:	int seed = rand() % 80 + 21;
+call    0 returned 100%
+        1:   24:	int passed = 0, failed = 0, pass = 0, beforeHand = 0, afterHand = 0;
+        1:   25:	int draw = 0, discard = 0;
+        1:   26:	int player = 0, randDeck, randHand, randCard, randKCard;
+        -:   27:	int icopper, isilver, igold;
+        1:   28:	int beforeCoins = 0, afterCoins = 0;
+        -:   29:	int i, j, n;
+        1:   30:	int k[10] = { adventurer, embargo, village, minion, mine, cutpurse,
+        -:   31:              remodel, tribute, smithy, council_room };
+       56:   32:	for (i = 0; i < numTests; i++) {
+branch  0 taken 98%
+branch  1 taken 2% (fallthrough)
+       55:   33:		initializeGame(2, k, seed, &game);
+call    0 returned 100%
+       55:   34:		beforeCoins = 0, afterCoins = 0;
+       55:   35:		randDeck = rand() % (500 + 1);
+call    0 returned 100%
+       55:   36:		randHand = rand() % (randDeck + 1);
+call    0 returned 100%
+       55:   37:		game.deckCount[0] = randDeck - randHand;
+       55:   38:		game.handCount[0] = randHand;
+        -:   39:        
+      165:   40:		for (j = 0; j < 2; j++) {
+branch  0 taken 67%
+branch  1 taken 33% (fallthrough)
+     8213:   41:			for (n = 0; n < game.deckCount[j]; n++) {
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+     8103:   42:				randCard = rand() % 5 + 1;
+call    0 returned 100%
+     8103:   43:				if (randCard == 1)
+branch  0 taken 20% (fallthrough)
+branch  1 taken 80%
+     1602:   44:					game.deck[j][n] = copper;
+     6501:   45:				else if (randCard == 2)
+branch  0 taken 25% (fallthrough)
+branch  1 taken 75%
+     1624:   46:					game.deck[j][n] = silver;
+     4877:   47:				else if (randCard == 3)
+branch  0 taken 34% (fallthrough)
+branch  1 taken 66%
+     1640:   48:					game.deck[j][n] = gold;
+        -:   49:				else {
+     3237:   50:					randKCard = rand() % 10;
+call    0 returned 100%
+     3237:   51:					game.deck[j][n] = k[randKCard];
+        -:   52:				}
+        -:   53:			}
+        -:   54:		}
+       55:   55:        player = game.whoseTurn;
+     6975:   56:		for (j = 0; j < game.handCount[player]; j++) {
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+     6920:   57:			if (game.hand[player][j] == copper || game.hand[player][j] == silver || game.hand[player][j] == gold)
+branch  0 taken 93% (fallthrough)
+branch  1 taken 7%
+branch  2 taken 95% (fallthrough)
+branch  3 taken 5%
+branch  4 taken 6% (fallthrough)
+branch  5 taken 94%
+     1103:   58:				beforeCoins += 1;
+        -:   59:		}
+        -:   60:    
+       55:   61:        printf("|==================================================|\n");
+call    0 returned 100%
+       55:   62:        printf("|                 Random Test #%-3d                 |\n", count);
+call    0 returned 100%
+       55:   63:        printf("|--------------------------------------------------|\n");
+call    0 returned 100%
+       55:   64:        printf("| Initial Coins: %-4d                              |\n", beforeCoins);
+call    0 returned 100%
+       55:   65:        beforeHand = game.handCount[player];
+       55:   66:        printf("| Initial Hand: %-4d                               |\n", beforeHand);
+call    0 returned 100%
+       55:   67:		cardEffect(adventurer, 0, 0, 0, &game, 0, 0);
+call    0 returned 100%
+     7052:   68:		for (j = 0; j < game.handCount[player]; j++) {
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+     6997:   69:			if (game.hand[player][j] == copper || game.hand[player][j] == silver || game.hand[player][j] == gold)
+branch  0 taken 93% (fallthrough)
+branch  1 taken 7%
+branch  2 taken 95% (fallthrough)
+branch  3 taken 5%
+branch  4 taken 6% (fallthrough)
+branch  5 taken 94%
+     1184:   70:				afterCoins += 1;
+        -:   71:		}
+       55:   72:        printf("|                                                  |\n");
+call    0 returned 100%
+       55:   73:        printf("| Result Coins: %-4d                               |\n", afterCoins);
+call    0 returned 100%
+       55:   74:        afterHand = game.handCount[player];
+       55:   75:        printf("| Result Hand: %-4d                                |\n", afterHand);
+call    0 returned 100%
+       55:   76:		icopper = 0, isilver = 0, igold = 0;
+       99:   77:		for (j = 0; j < game.discardCount[player]; j++) {
+branch  0 taken 44%
+branch  1 taken 56% (fallthrough)
+       44:   78:			if (game.discard[player][j] == copper)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   79:				icopper += 1;
+       44:   80:			else if (game.discard[player][j] == silver)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   81:				isilver += 1;
+       44:   82:			else if (game.discard[player][j] == gold)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   83:				igold += 1;
+        -:   84:		}
+       55:   85:		pass = 1;
+       55:   86:		if (afterCoins < beforeCoins || afterCoins != beforeCoins + 1) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 51% (fallthrough)
+branch  3 taken 49%
+       28:   87:			pass = 0;
+        -:   88:		}
+       55:   89:		if (afterHand <= beforeHand) {
+branch  0 taken 2% (fallthrough)
+branch  1 taken 98%
+        1:   90:			pass = 0;
+        -:   91:		}
+       55:   92:		if (pass == 1){
+branch  0 taken 49% (fallthrough)
+branch  1 taken 51%
+       27:   93:            passed++;
+       27:   94:            printf("|--------------------------------------------------|\n");
+call    0 returned 100%
+       27:   95:            printf("|                 Test #%-3d PASSED                 |\n", count);
+call    0 returned 100%
+       27:   96:            printf("|==================================================|\n\n\n");
+call    0 returned 100%
+        -:   97:        }
+        -:   98:        else {
+       28:   99:          printf("|--------------------------------------------------|\n");
+call    0 returned 100%
+       28:  100:          printf("|                Test #%-3d FAILED                  |\n", count);
+call    0 returned 100%
+       28:  101:          printf("|==================================================|\n\n\n");
+call    0 returned 100%
+        -:  102:        }
+       55:  103:        count++;
+        -:  104:	}
+        -:  105:    
+        1:  106:    failed = (count-1) - passed;
+        1:  107:	printf("|==================================================|\n");
+call    0 returned 100%
+        1:  108:    printf("|         Random Test Results: ADVENTURER          |\n");
+call    0 returned 100%
+        1:  109:    printf("|--------------------------------------------------|\n");
+call    0 returned 100%
+        1:  110:	printf("| PASSED: %-4d of %4d                             |\n", passed, count-1);
+call    0 returned 100%
+        1:  111:	printf("| FAILED: %-4d of %4d                             |\n", failed, count-1);
+call    0 returned 100%
+        1:  112:    printf("|==================================================|\n\n");
+call    0 returned 100%
+        1:  113:	return 0;
+        -:  114:}

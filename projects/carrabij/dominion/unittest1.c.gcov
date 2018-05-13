@@ -1,0 +1,173 @@
+        -:    0:Source:unittest1.c
+        -:    0:Graph:unittest1.gcno
+        -:    0:Data:unittest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/******************************************************************
+        -:    2:*  Name: John Carrabino
+        -:    3:*  Class: CS362
+        -:    4:*  Function Tested: gainCard()
+        -:    5:******************************************************************/
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include <stdio.h>
+        -:   10:#include <assert.h>
+        -:   11:
+function main called 1 returned 100% blocks executed 75%
+        1:   12:int main() {
+        1:   13:  int success = 0;
+        1:   14:  int failed = 0;
+        1:   15:  int passed = 4;
+        1:   16:  int toFlag = 0;
+        1:   17:  int player1 = 0;
+        1:   18:  int k[10] = {smithy, adventurer, village, mine, minion, steward, treasure_map, baron, feast, gardens};
+        -:   19:  struct gameState game;
+        1:   20:  initializeGame(2, k, 100, &game);
+call    0 returned 100%
+        -:   21:  
+        1:   22:  printf("\nUNIT TEST 1: isGameOver()\n");
+call    0 returned 100%
+        1:   23:  passed++;
+        -:   24:  
+        -:   25:  //int gainCard(int supplyPos, struct gameState *state, int toFlag, int player)
+        -:   26:  // toFlag = 0 : add to discard
+        -:   27:  // toFlag = 1 : add to deck
+        -:   28:  // toFlag = 2 : add to hand
+        -:   29:  
+        1:   30:  printf("\ngainCard() TEST 1: toFlag == 0 && supplyPos == gold\n");
+call    0 returned 100%
+        1:   31:  printf("Discard count BEFORE gainCard(): %d\n", game.discardCount[player1]);
+call    0 returned 100%
+        1:   32:  int discard1 = game.discardCount[player1];
+        1:   33:  game.hand[player1][1] = gold;
+        1:   34:  int test1 = gainCard(gold, &game, 0, player1);
+call    0 returned 100%
+        1:   35:  printf("Discard count AFTER gainCard(): %d\n", game.discardCount[player1]);
+call    0 returned 100%
+        1:   36:  int discard2 = game.discardCount[player1];
+        -:   37:  
+        1:   38:  if (test1 == 0 && discard2 - discard1 == 1){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:   39:    printf("Player 1's Discard pile gained 1 card\n");
+call    0 returned 100%
+        1:   40:    printf("TEST 1 PASSED\n");
+call    0 returned 100%
+        -:   41:  } else{
+    #####:   42:    printf("Player 1's Discard pile DID NOT gain 1 card\n");
+call    0 never executed
+    #####:   43:    printf("TEST 1 FAILED\n"); 
+call    0 never executed
+    #####:   44:    failed++;    
+        -:   45:  }
+        -:   46:  
+        -:   47:  
+        1:   48:  printf("\ngainCard() TEST 2: toFlag == 1 && supplyPos == gold\n");
+call    0 returned 100%
+        1:   49:  passed++;
+        1:   50:  printf("Deck count BEFORE gainCard(): %d\n", game.deckCount[player1]);
+call    0 returned 100%
+        1:   51:  int deck1 = game.deckCount[player1];  
+        1:   52:  game.supplyCount[gold] = 1;
+        1:   53:  int test2 = gainCard(gold, &game, 1, player1);
+call    0 returned 100%
+        1:   54:  printf("Deck count AFTER gainCard(): %d\n", game.deckCount[player1]);
+call    0 returned 100%
+        1:   55:  int deck2 = game.deckCount[player1];
+        -:   56:  
+        1:   57:  if (test2 == 0 && deck2 - deck1 == 1){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:   58:    printf("Player 1's Deck gained 1 card\n");
+call    0 returned 100%
+        1:   59:    printf("TEST 2 PASSED\n");
+call    0 returned 100%
+        -:   60:  } else{
+    #####:   61:    printf("Player 1's Deck DID NOT gain 1 card\n");
+call    0 never executed
+    #####:   62:    printf("TEST 2 FAILED\n"); 
+call    0 never executed
+    #####:   63:    failed++;        
+        -:   64:  }
+        -:   65:  
+        -:   66:  
+        -:   67:  
+        1:   68:  printf("\ngainCard() TEST 3: toFlag == 2 && supplyPos == gold\n");
+call    0 returned 100%
+        1:   69:  passed++;
+        1:   70:  printf("Hand count BEFORE gainCard(): %d\n", game.handCount[player1]);
+call    0 returned 100%
+        1:   71:  int hand1 = game.handCount[player1];
+        1:   72:  game.supplyCount[gold] = 1;
+        1:   73:  int test3 = gainCard(gold, &game, 2, player1);
+call    0 returned 100%
+        1:   74:  printf("Hand count AFTER gainCard(): %d\n", game.handCount[player1]);
+call    0 returned 100%
+        1:   75:  int hand2 = game.handCount[player1];
+        -:   76:  
+        1:   77:  if (test3 == 0 && hand2 - hand1 == 1){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:   78:    printf("Player 1's hand gained 1 card\n");
+call    0 returned 100%
+        1:   79:    printf("TEST 3 PASSED\n");
+call    0 returned 100%
+        -:   80:  } else{
+    #####:   81:    printf("Player 1's hand DID NOT gain 1 card\n");
+call    0 never executed
+    #####:   82:    printf("TEST 3 FAILED\n"); 
+call    0 never executed
+    #####:   83:    failed++;        
+        -:   84:  }
+        -:   85:  
+        -:   86:  
+        -:   87:  
+        1:   88:  printf("\ngainCard() TEST 4: toFlag == 2 && supplyPos == gold\n");
+call    0 returned 100%
+        1:   89:  passed++;
+        1:   90:  game.supplyCount[gold] = 0;
+        1:   91:  printf("Hand count BEFORE gainCard(): %d\n", game.handCount[player1]);
+call    0 returned 100%
+        1:   92:  hand1 = game.handCount[player1];
+        1:   93:  int test4 = gainCard(gold, &game, 2, player1);
+call    0 returned 100%
+        1:   94:  printf("Hand count AFTER gainCard(): %d\n", game.handCount[player1]);
+call    0 returned 100%
+        1:   95:  hand2 = game.handCount[player1];
+        -:   96:  
+        1:   97:  if (test4 == -1 && hand2 - hand1 == 0){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:   98:    printf("gainCard() Successfully returned -1 when card does not exist\n");
+call    0 returned 100%
+        1:   99:    printf("TEST 4 PASSED\n");
+call    0 returned 100%
+        -:  100:  } else{
+    #####:  101:    printf("gainCard() DID NOT return -1 when card does not exist\n");
+call    0 never executed
+    #####:  102:    printf("TEST 4 FAILED\n"); 
+call    0 never executed
+    #####:  103:    failed++;        
+        -:  104:  }
+        -:  105:  
+        -:  106:  
+        -:  107:  
+        1:  108:  if (success == 0)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:  109:    printf("\n%d OF 4 TESTS PASSED.\n\n", passed - failed);
+call    0 returned 100%
+        -:  110:  else
+    #####:  111:    printf("\n%d OF 4 TESTS FAILED.\n\n", failed);
+call    0 never executed
+        1:  112:  return 0;
+        -:  113:}
