@@ -1,0 +1,1280 @@
+
+UNIT TEST 1: isGameOver()
+
+gainCard() TEST 1: toFlag == 0 && supplyPos == gold
+Discard count BEFORE gainCard(): 0
+Discard count AFTER gainCard(): 1
+Player 1's Discard pile gained 1 card
+TEST 1 PASSED
+
+gainCard() TEST 2: toFlag == 1 && supplyPos == gold
+Deck count BEFORE gainCard(): 5
+Deck count AFTER gainCard(): 6
+Player 1's Deck gained 1 card
+TEST 2 PASSED
+
+gainCard() TEST 3: toFlag == 2 && supplyPos == gold
+Hand count BEFORE gainCard(): 5
+Hand count AFTER gainCard(): 6
+Player 1's hand gained 1 card
+TEST 3 PASSED
+
+gainCard() TEST 4: toFlag == 2 && supplyPos == gold
+Hand count BEFORE gainCard(): 6
+Hand count AFTER gainCard(): 6
+gainCard() Successfully returned -1 when card does not exist
+TEST 4 PASSED
+
+8 OF 4 TESTS PASSED.
+
+File 'unittest1.c'
+Lines executed:81.16% of 69
+Branches executed:100.00% of 18
+Taken at least once:50.00% of 18
+Calls executed:75.00% of 36
+Creating 'unittest1.c.gcov'
+
+        -:    0:Source:unittest1.c
+        -:    0:Graph:unittest1.gcno
+        -:    0:Data:unittest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/******************************************************************
+        -:    2:*  Name: John Carrabino
+        -:    3:*  Class: CS362
+        -:    4:*  Function Tested: gainCard()
+        -:    5:******************************************************************/
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include <stdio.h>
+        -:   10:#include <assert.h>
+        -:   11:
+function main called 1 returned 100% blocks executed 75%
+        1:   12:int main() {
+        1:   13:  int success = 0;
+        1:   14:  int failed = 0;
+        1:   15:  int passed = 4;
+        1:   16:  int toFlag = 0;
+        1:   17:  int player1 = 0;
+        1:   18:  int k[10] = {smithy, adventurer, village, mine, minion, steward, treasure_map, baron, feast, gardens};
+        -:   19:  struct gameState game;
+        1:   20:  initializeGame(2, k, 100, &game);
+call    0 returned 100%
+        -:   21:  
+        1:   22:  printf("\nUNIT TEST 1: isGameOver()\n");
+call    0 returned 100%
+        1:   23:  passed++;
+        -:   24:  
+        -:   25:  //int gainCard(int supplyPos, struct gameState *state, int toFlag, int player)
+        -:   26:  // toFlag = 0 : add to discard
+        -:   27:  // toFlag = 1 : add to deck
+        -:   28:  // toFlag = 2 : add to hand
+        -:   29:  
+        1:   30:  printf("\ngainCard() TEST 1: toFlag == 0 && supplyPos == gold\n");
+call    0 returned 100%
+        1:   31:  printf("Discard count BEFORE gainCard(): %d\n", game.discardCount[player1]);
+call    0 returned 100%
+        1:   32:  int discard1 = game.discardCount[player1];
+        1:   33:  game.hand[player1][1] = gold;
+        1:   34:  int test1 = gainCard(gold, &game, 0, player1);
+call    0 returned 100%
+        1:   35:  printf("Discard count AFTER gainCard(): %d\n", game.discardCount[player1]);
+call    0 returned 100%
+        1:   36:  int discard2 = game.discardCount[player1];
+        -:   37:  
+        1:   38:  if (test1 == 0 && discard2 - discard1 == 1){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:   39:    printf("Player 1's Discard pile gained 1 card\n");
+call    0 returned 100%
+        1:   40:    printf("TEST 1 PASSED\n");
+call    0 returned 100%
+        -:   41:  } else{
+    #####:   42:    printf("Player 1's Discard pile DID NOT gain 1 card\n");
+call    0 never executed
+    #####:   43:    printf("TEST 1 FAILED\n"); 
+call    0 never executed
+    #####:   44:    failed++;    
+        -:   45:  }
+        -:   46:  
+        -:   47:  
+        1:   48:  printf("\ngainCard() TEST 2: toFlag == 1 && supplyPos == gold\n");
+call    0 returned 100%
+        1:   49:  passed++;
+        1:   50:  printf("Deck count BEFORE gainCard(): %d\n", game.deckCount[player1]);
+call    0 returned 100%
+        1:   51:  int deck1 = game.deckCount[player1];  
+        1:   52:  game.supplyCount[gold] = 1;
+        1:   53:  int test2 = gainCard(gold, &game, 1, player1);
+call    0 returned 100%
+        1:   54:  printf("Deck count AFTER gainCard(): %d\n", game.deckCount[player1]);
+call    0 returned 100%
+        1:   55:  int deck2 = game.deckCount[player1];
+        -:   56:  
+        1:   57:  if (test2 == 0 && deck2 - deck1 == 1){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:   58:    printf("Player 1's Deck gained 1 card\n");
+call    0 returned 100%
+        1:   59:    printf("TEST 2 PASSED\n");
+call    0 returned 100%
+        -:   60:  } else{
+    #####:   61:    printf("Player 1's Deck DID NOT gain 1 card\n");
+call    0 never executed
+    #####:   62:    printf("TEST 2 FAILED\n"); 
+call    0 never executed
+    #####:   63:    failed++;        
+        -:   64:  }
+        -:   65:  
+        -:   66:  
+        -:   67:  
+        1:   68:  printf("\ngainCard() TEST 3: toFlag == 2 && supplyPos == gold\n");
+call    0 returned 100%
+        1:   69:  passed++;
+        1:   70:  printf("Hand count BEFORE gainCard(): %d\n", game.handCount[player1]);
+call    0 returned 100%
+        1:   71:  int hand1 = game.handCount[player1];
+        1:   72:  game.supplyCount[gold] = 1;
+        1:   73:  int test3 = gainCard(gold, &game, 2, player1);
+call    0 returned 100%
+        1:   74:  printf("Hand count AFTER gainCard(): %d\n", game.handCount[player1]);
+call    0 returned 100%
+        1:   75:  int hand2 = game.handCount[player1];
+        -:   76:  
+        1:   77:  if (test3 == 0 && hand2 - hand1 == 1){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:   78:    printf("Player 1's hand gained 1 card\n");
+call    0 returned 100%
+        1:   79:    printf("TEST 3 PASSED\n");
+call    0 returned 100%
+        -:   80:  } else{
+    #####:   81:    printf("Player 1's hand DID NOT gain 1 card\n");
+call    0 never executed
+    #####:   82:    printf("TEST 3 FAILED\n"); 
+call    0 never executed
+    #####:   83:    failed++;        
+        -:   84:  }
+        -:   85:  
+        -:   86:  
+        -:   87:  
+        1:   88:  printf("\ngainCard() TEST 4: toFlag == 2 && supplyPos == gold\n");
+call    0 returned 100%
+        1:   89:  passed++;
+        1:   90:  game.supplyCount[gold] = 0;
+        1:   91:  printf("Hand count BEFORE gainCard(): %d\n", game.handCount[player1]);
+call    0 returned 100%
+        1:   92:  hand1 = game.handCount[player1];
+        1:   93:  int test4 = gainCard(gold, &game, 2, player1);
+call    0 returned 100%
+        1:   94:  printf("Hand count AFTER gainCard(): %d\n", game.handCount[player1]);
+call    0 returned 100%
+        1:   95:  hand2 = game.handCount[player1];
+        -:   96:  
+        1:   97:  if (test4 == -1 && hand2 - hand1 == 0){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:   98:    printf("gainCard() Successfully returned -1 when card does not exist\n");
+call    0 returned 100%
+        1:   99:    printf("TEST 4 PASSED\n");
+call    0 returned 100%
+        -:  100:  } else{
+    #####:  101:    printf("gainCard() DID NOT return -1 when card does not exist\n");
+call    0 never executed
+    #####:  102:    printf("TEST 4 FAILED\n"); 
+call    0 never executed
+    #####:  103:    failed++;        
+        -:  104:  }
+        -:  105:  
+        -:  106:  
+        -:  107:  
+        1:  108:  if (success == 0)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:  109:    printf("\n%d OF 4 TESTS PASSED.\n\n", passed - failed);
+call    0 returned 100%
+        -:  110:  else
+    #####:  111:    printf("\n%d OF 4 TESTS FAILED.\n\n", failed);
+call    0 never executed
+        1:  112:  return 0;
+        -:  113:}
+
+UNIT TEST 2: fillDeckCount()
+fillDeckCount() TEST 1: Empty Deck
+TEST 1 PASSED
+fillDeckCount() TEST 2: 5 silver in deck
+TEST 2 PASSED
+fillDeckCount() TEST 3: 6 copper in deck
+TEST 3 PASSED
+fillDeckCount() TEST 4: 4 gold in deck
+TEST 4 PASSED
+4 OF 4 TESTS PASSED.
+
+File 'unittest2.c'
+Lines executed:82.00% of 50
+Branches executed:100.00% of 10
+Taken at least once:50.00% of 10
+Calls executed:75.00% of 20
+Creating 'unittest2.c.gcov'
+
+        -:    0:Source:unittest2.c
+        -:    0:Graph:unittest2.gcno
+        -:    0:Data:unittest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/******************************************************************
+        -:    2:*  Name: John Carrabino
+        -:    3:*  Class: CS362
+        -:    4:*  Function Tested: fullDeckCount()
+        -:    5:******************************************************************/
+        -:    6:
+        -:    7:#include "interface.h"
+        -:    8:#include "dominion.h"
+        -:    9:#include "dominion_helpers.h"
+        -:   10:#include <string.h>
+        -:   11:#include <stdio.h>
+        -:   12:#include "rngs.h"
+        -:   13:
+function main called 1 returned 100% blocks executed 71%
+        1:   14:int main() {
+        1:   15:  int passed = 0;
+        1:   16:  int failed = 0;
+        -:   17:  struct gameState game;
+        1:   18:  int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall};
+        1:   19:  initializeGame(2, k, 100, &game);
+call    0 returned 100%
+        -:   20:  int h1[0];
+        -:   21:  int d1[0];
+        -:   22:  int td1[0];
+        -:   23:  memcpy(game.hand[0], h1, 0);
+        -:   24:  memcpy(game.deck[0], d1, 0);
+        -:   25:  memcpy(game.discard[0], td1, 0);
+        1:   26:  game.handCount[0] = 0;
+        1:   27:  game.deckCount[0] = 0;
+        1:   28:  game.discardCount[0] = 0;
+        -:   29:  
+        1:   30:  printf("\nUNIT TEST 2: fillDeckCount()\n");
+call    0 returned 100%
+        1:   31:  printf("fillDeckCount() TEST 1: Empty Deck\n");
+call    0 returned 100%
+        1:   32:  passed++;
+        1:   33:  int result = fullDeckCount(0, copper, &game);
+call    0 returned 100%
+        1:   34:  if (result == 0) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   35:    printf("TEST 1 PASSED\n");
+call    0 returned 100%
+        -:   36:  }
+        -:   37:  else {
+    #####:   38:    printf("TEST 1 FAILED\n");
+call    0 never executed
+    #####:   39:    failed++;
+        -:   40:  }
+        -:   41:
+        1:   42:  int h2[5] = {copper, silver, gold, silver, copper};
+        1:   43:  memcpy(game.hand[0], h2, 5 * sizeof(int));
+        1:   44:  game.handCount[0] = 5;
+        1:   45:  int d2[7] = {copper, silver, copper, silver, gold, copper, gold};
+        1:   46:  memcpy(game.deck[0], d2, 7 * sizeof(int));
+        1:   47:  game.deckCount[0] = 7;
+        1:   48:  int td2[3] = {copper, silver, gold};
+        1:   49:  memcpy(game.discard[0], td2, 3 * sizeof(int));
+        1:   50:  game.discardCount[0] = 3;
+        -:   51:
+        -:   52:  //5 Silver test
+        1:   53:  printf("fillDeckCount() TEST 2: 5 silver in deck\n");
+call    0 returned 100%
+        1:   54:  passed++;
+        1:   55:  result = fullDeckCount(0, silver, &game);
+call    0 returned 100%
+        1:   56:  if (result == 5) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   57:    printf("TEST 2 PASSED\n");
+call    0 returned 100%
+        -:   58:  }
+        -:   59:  else {
+    #####:   60:    printf("TEST 2 FAILED\n");
+call    0 never executed
+    #####:   61:    failed++;
+        -:   62:  }
+        -:   63:
+        -:   64:  //6 Copper test
+        1:   65:  printf("fillDeckCount() TEST 3: 6 copper in deck\n");
+call    0 returned 100%
+        1:   66:  passed++;
+        1:   67:  result = fullDeckCount(0, copper, &game);
+call    0 returned 100%
+        1:   68:  if (result == 6) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   69:    printf("TEST 3 PASSED\n");
+call    0 returned 100%
+        -:   70:  }
+        -:   71:  else {
+    #####:   72:    printf("TEST 4 FAILED\n");
+call    0 never executed
+    #####:   73:    failed++;
+        -:   74:  }
+        -:   75:
+        -:   76:  //4 Gold test
+        1:   77:  printf("fillDeckCount() TEST 4: 4 gold in deck\n");
+call    0 returned 100%
+        1:   78:  passed++;
+        1:   79:  result = fullDeckCount(0, gold, &game);
+call    0 returned 100%
+        1:   80:  if (result == 4) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   81:    printf("TEST 4 PASSED\n");
+call    0 returned 100%
+        -:   82:  }
+        -:   83:  else {
+    #####:   84:    printf("TEST 4 FAILED\n");
+call    0 never executed
+    #####:   85:    failed++;
+        -:   86:  }
+        -:   87:
+        -:   88:  // Output what passed or failed.
+        1:   89:  if (failed == 0)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   90:    printf("4 OF 4 TESTS PASSED.\n\n");
+call    0 returned 100%
+        -:   91:  else
+    #####:   92:    printf("%d OF 4 TESTS PASSED.\n\n", passed - failed);
+call    0 never executed
+        1:   93:  return 0;
+        -:   94:}
+
+UNIT TEST 3: buyCard()
+buyCard() TEST 1: Buy 1 silver
+buyCard() Returned 0, Player 1 successfully bought silver.
+buyCard() TEST 1 PASSED
+buyCard() UNIT TEST SUCCESSFULLY COMPLETED
+
+File 'unittest3.c'
+Lines executed:85.71% of 21
+Branches executed:100.00% of 4
+Taken at least once:50.00% of 4
+Calls executed:77.78% of 9
+Creating 'unittest3.c.gcov'
+
+        -:    0:Source:unittest3.c
+        -:    0:Graph:unittest3.gcno
+        -:    0:Data:unittest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/******************************************************************
+        -:    2:*  Name: John Carrabino
+        -:    3:*  Class: CS362
+        -:    4:*  Function Tested: buyCard()
+        -:    5:******************************************************************/
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include <stdio.h>
+        -:   10:#include <assert.h>
+        -:   11:
+function main called 1 returned 100% blocks executed 85%
+        1:   12:int main() {
+        1:   13:  int PASS = 0;
+        1:   14:  int test1 = 0;
+        1:   15:  int playerOne = 1;
+        -:   16:  
+        -:   17:  // Give player enough money to buy silver
+        1:   18:  int treasure = 6;
+        1:   19:  int k[10] = {adventurer, embargo, village, minion, mine, cutpurse, sea_hag, tribute, smithy, great_hall};
+        -:   20:  struct gameState game;
+        -:   21:  
+        1:   22:  initializeGame(2, k, 100, &game);
+call    0 returned 100%
+        -:   23:
+        -:   24:  //Start test
+        1:   25:  printf("\nUNIT TEST 3: buyCard()\n");
+call    0 returned 100%
+        1:   26:  game.whoseTurn = playerOne;
+        1:   27:  game.coins = treasure;
+        1:   28:  test1 = buyCard(silver, &game);
+call    0 returned 100%
+        1:   29:  printf("buyCard() TEST 1: Buy 1 silver\n");
+call    0 returned 100%
+        1:   30:  if (test1 == 0){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   31:    printf("buyCard() Returned 0, Player 1 successfully bought silver.\n");
+call    0 returned 100%
+        1:   32:    printf("buyCard() TEST 1 PASSED\n");
+call    0 returned 100%
+        -:   33:  } else {
+    #####:   34:    PASS = 1;
+    #####:   35:    printf("TEST 1 FAILED\n");
+call    0 never executed
+        -:   36:  }
+        -:   37:  
+        1:   38:  if (PASS == 0)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   39:    printf("buyCard() UNIT TEST SUCCESSFULLY COMPLETED\n\n");
+call    0 returned 100%
+        -:   40:  else 
+    #####:   41:    printf("buyCard() UNIT TEST FAILED\n\n");
+call    0 never executed
+        1:   42:  return 0;
+        -:   43:}
+
+UNIT TEST 4: updateCoins()
+
+updateCoins() TEST 1: Hand with no coins
+TEST 1 PASSED: Hand has no coins
+
+updateCoins() TEST 2: Hand with 5 coins
+TEST 2 PASSED: Hand has 5 coins
+
+updateCoins() TEST 3: Hand with 10 coins
+TEST 3 PASSED: Hand has 10 coins
+
+updateCoins() TEST 4: Hand with 5 coins
+TEST 4 PASSED: Hand has 5 coins
+
+updateCoins() TEST 5: Hand with 4 coins
+TEST 5 PASSED: Hand has 4 coins
+
+5 OF 5 TESTS PASSED
+
+File 'unittest4.c'
+Lines executed:81.13% of 53
+Branches executed:100.00% of 20
+Taken at least once:75.00% of 20
+Calls executed:78.26% of 23
+Creating 'unittest4.c.gcov'
+
+        -:    0:Source:unittest4.c
+        -:    0:Graph:unittest4.gcno
+        -:    0:Data:unittest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/******************************************************************
+        -:    2:*  Name: John Carrabino
+        -:    3:*  Class: CS362
+        -:    4:*  Function Tested: updateCoins()
+        -:    5:******************************************************************/
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include <string.h>
+        -:   10:#include <stdio.h>
+        -:   11:#include <assert.h>
+        -:   12:#include <stdlib.h>
+        -:   13:#include "rngs.h"
+        -:   14:
+function main called 1 returned 100% blocks executed 80%
+        1:   15:int main () {
+        -:   16:    int i;
+        -:   17:    struct gameState game;
+        1:   18:    int k[10] = {adventurer, embargo, village, minion, mine, cutpurse, sea_hag, tribute, smithy, council_room};
+        1:   19:    int failed = 0;
+        1:   20:    int hand1[5] = {smithy, minion, smithy, tribute, mine};
+        1:   21:    int hand2[5] = {copper, copper, copper, copper, copper};
+        1:   22:    int hand3[5] = {smithy, gold, gold, gold, copper};
+        1:   23:    int hand4[5] = {gold, minion, embargo, village, silver};
+        1:   24:    int hand5[5] = {silver, copper, copper, village, embargo};
+        1:   25:    initializeGame(2, k, 100, &game);
+call    0 returned 100%
+        1:   26:    game.handCount[0] = 5;
+        1:   27:    printf("\nUNIT TEST 4: updateCoins()\n");
+call    0 returned 100%
+        -:   28:
+        -:   29:    // Testing no coins
+        6:   30:    for(i = 0; i < 5; i++)
+branch  0 taken 83%
+branch  1 taken 17% (fallthrough)
+        5:   31:      game.hand[0][i] = hand1[i];
+        1:   32:    updateCoins(0, &game, 0);
+call    0 returned 100%
+        1:   33:    printf("\nupdateCoins() TEST 1: Hand with no coins\n");
+call    0 returned 100%
+        1:   34:    if (game.coins != 0){
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   35:      printf("TEST 1 FAILED\n");
+call    0 never executed
+    #####:   36:      failed++;
+        -:   37:    } else
+        1:   38:      printf("TEST 1 PASSED: Hand has no coins\n");
+call    0 returned 100%
+        -:   39:
+        -:   40:    // All copper
+        6:   41:    for(i = 0; i < 5; i++)
+branch  0 taken 83%
+branch  1 taken 17% (fallthrough)
+        5:   42:      game.hand[0][i] = hand2[i];
+        1:   43:    updateCoins(0, &game, 0);
+call    0 returned 100%
+        1:   44:    printf("\nupdateCoins() TEST 2: Hand with 5 coins\n");
+call    0 returned 100%
+        1:   45:    if (game.coins != 5){
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   46:      printf("TEST 2 FAILED\n");
+call    0 never executed
+    #####:   47:      failed++;
+        -:   48:    } else
+        1:   49:      printf("TEST 2 PASSED: Hand has 5 coins\n");
+call    0 returned 100%
+        -:   50:
+        -:   51:    // 3 Gold & 1 Copper
+        6:   52:    for(i = 0; i < 5; i++)
+branch  0 taken 83%
+branch  1 taken 17% (fallthrough)
+        5:   53:      game.hand[0][i] = hand3[i];
+        1:   54:    updateCoins(0, &game, 0);
+call    0 returned 100%
+        1:   55:    printf("\nupdateCoins() TEST 3: Hand with 10 coins\n");
+call    0 returned 100%
+        1:   56:    if (game.coins != 10){
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   57:      printf("TEST 3 FAILED\n");
+call    0 never executed
+    #####:   58:      failed++;
+        -:   59:    } else
+        1:   60:      printf("TEST 3 PASSED: Hand has 10 coins\n");
+call    0 returned 100%
+        -:   61:
+        -:   62:    // 1 Gold & 1 Silver
+        6:   63:    for(i = 0; i < 5; i++)
+branch  0 taken 83%
+branch  1 taken 17% (fallthrough)
+        5:   64:      game.hand[0][i] = hand4[i];
+        1:   65:    updateCoins(0, &game, 0);
+call    0 returned 100%
+        1:   66:    printf("\nupdateCoins() TEST 4: Hand with 5 coins\n");
+call    0 returned 100%
+        1:   67:    if (game.coins != 5){
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   68:      printf("TEST 4 FAILED\n");
+call    0 never executed
+    #####:   69:      failed++;
+        -:   70:    } else
+        1:   71:      printf("TEST 4 PASSED: Hand has 5 coins\n");
+call    0 returned 100%
+        -:   72:
+        -:   73:    // 1 Gold & 2 Copper
+        6:   74:    for(i = 0; i < 5; i++)
+branch  0 taken 83%
+branch  1 taken 17% (fallthrough)
+        5:   75:      game.hand[0][i] = hand5[i];
+        1:   76:    updateCoins(0, &game, 0);
+call    0 returned 100%
+        1:   77:    printf("\nupdateCoins() TEST 5: Hand with 4 coins\n");
+call    0 returned 100%
+        1:   78:    if (game.coins != 4){
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   79:      printf("TEST 5 FAILED\n");
+call    0 never executed
+    #####:   80:      failed++;
+        -:   81:    } else
+        1:   82:      printf("TEST 5 PASSED: Hand has 4 coins\n");
+call    0 returned 100%
+        -:   83:
+        -:   84:
+        1:   85:    printf("\n%d OF 5 TESTS PASSED\n\n", 5-failed);
+call    0 returned 100%
+        1:   86:    return 0;
+        -:   87:}
+
+ADVENTURER card test:
+
+TEST 1: Initial hand/deck counts match BEFORE playing Adventurer
+Test hand count: 5
+Control hand count: 5
+Test deck count: 5
+Control deck count: 5
+TEST 1 PASSED
+
+TEST 2: hand/deck counts AFTER playing Adventurer
+Test hand count: 9
+Control hand count: 6
+Test deck count: 0
+Control deck count: 3
+TEST 2 FAILED
+
+TEST 3: player gained 2 treasure cards AFTER playing Adventurer
+First new card is Copper
+Second new card is Copper
+The player drew 2 treasure cards
+TEST 3 PASSED
+
+1 of 3 tests failed.
+
+File 'cardtest1.c'
+Lines executed:83.02% of 53
+Branches executed:72.73% of 22
+Taken at least once:36.36% of 22
+Calls executed:82.14% of 28
+Creating 'cardtest1.c.gcov'
+
+        -:    0:Source:cardtest1.c
+        -:    0:Graph:cardtest1.gcno
+        -:    0:Data:cardtest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/******************************************************************
+        -:    2:*  Name: John Carrabino
+        -:    3:*  Class: CS362
+        -:    4:*  Card Tested: Adventurer
+        -:    5:******************************************************************/
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include "interface.h"
+        -:   10:#include <string.h>
+        -:   11:#include <stdio.h>
+        -:   12:#include <assert.h>
+        -:   13:#include "rngs.h"
+        -:   14:#include <stdlib.h>
+        -:   15:
+function main called 1 returned 100% blocks executed 77%
+        1:   16:int main() {
+        1:   17:  int passed = 0;
+        1:   18:  int failed = 0;
+        1:   19:  int player1 = 0;
+        1:   20:  int position = 0;
+        1:   21:  int choice1 = 0;
+        1:   22:  int choice2 = 0;
+        1:   23:  int choice3 = 0;
+        1:   24:  int bonus = 0;
+        1:   25:  int k[10] = {smithy, adventurer, village, mine, minion, steward, treasure_map, council_room, feast, gardens};
+        -:   26:  char x1[32];
+        -:   27:  char x2[32];
+        -:   28:  struct gameState game, test;
+        1:   29:  initializeGame(2, k, 100, &game);
+call    0 returned 100%
+        1:   30:  memcpy(&test, &game, sizeof(struct gameState));
+        -:   31:
+        1:   32:  printf("\nADVENTURER card test:\n");
+call    0 returned 100%
+        -:   33:  
+        1:   34:  printf("\nTEST 1: Initial hand/deck counts match BEFORE playing Adventurer\n");
+call    0 returned 100%
+        1:   35:  printf("Test hand count: %d\n", test.handCount[player1]);
+call    0 returned 100%
+        1:   36:  printf("Control hand count: %d\n", game.handCount[player1]);
+call    0 returned 100%
+        1:   37:  printf("Test deck count: %d\n", test.deckCount[player1]);
+call    0 returned 100%
+        1:   38:  printf("Control deck count: %d\n", game.deckCount[player1]);
+call    0 returned 100%
+        1:   39:  if (test.handCount[player1] == game.handCount[player1] && test.deckCount[player1] == game.deckCount[player1])
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:   40:    printf("TEST 1 PASSED\n");
+call    0 returned 100%
+        -:   41:  else {
+    #####:   42:    printf("TEST 1 FAILED\n");
+call    0 never executed
+    #####:   43:    passed = 1;
+    #####:   44:    failed++;
+        -:   45:  }
+        -:   46:  
+        -:   47:  
+        1:   48:  printf("\nTEST 2: hand/deck counts AFTER playing Adventurer\n");
+call    0 returned 100%
+        1:   49:  cardEffect(adventurer, choice1, choice2, choice3, &test, position, &bonus);
+call    0 returned 100%
+        1:   50:  int addedCards = 2;
+        1:   51:  printf("Test hand count: %d\n", test.handCount[player1]);
+call    0 returned 100%
+        1:   52:  printf("Control hand count: %d\n", game.handCount[player1] + addedCards - 1);
+call    0 returned 100%
+        1:   53:  printf("Test deck count: %d\n", test.deckCount[player1]);
+call    0 returned 100%
+        1:   54:  printf("Control deck count: %d\n", game.deckCount[player1] - (game.discardCount[player1] + addedCards));
+call    0 returned 100%
+        1:   55:  if (test.handCount[player1] == game.handCount[player1] + addedCards - 1 && test.deckCount[player1] == game.deckCount[player1] - (game.discardCount[player1] + addedCards)){
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+branch  2 never executed
+branch  3 never executed
+    #####:   56:    printf("Player successfully added two cards to hand after playing Adventurer card\n");
+call    0 never executed
+    #####:   57:    printf("TEST 2 PASSED\n");
+call    0 never executed
+        -:   58:  } else {
+        1:   59:    printf("TEST 2 FAILED\n");
+call    0 returned 100%
+        1:   60:    passed = 1;
+        1:   61:    failed++;
+        -:   62:  }
+        -:   63:  
+        -:   64:  
+        1:   65:  printf("\nTEST 3: player gained 2 treasure cards AFTER playing Adventurer\n");
+call    0 returned 100%
+        1:   66:  int first = game.hand[player1][game.handCount[player1]-1];
+        1:   67:  int second = game.hand[player1][game.handCount[player1]-2];
+        1:   68:  cardNumToName(first, x1);
+call    0 returned 100%
+        1:   69:  cardNumToName(second, x2);
+call    0 returned 100%
+        1:   70:  printf("First new card is %s\n", x1);
+call    0 returned 100%
+        1:   71:  printf("Second new card is %s\n", x2);
+call    0 returned 100%
+        1:   72:  if ((first != copper || first != silver || first != gold) && (second != copper || second != silver || second != gold)){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 0% (fallthrough)
+branch  3 taken 100%
+branch  4 never executed
+branch  5 never executed
+branch  6 taken 100% (fallthrough)
+branch  7 taken 0%
+branch  8 taken 0% (fallthrough)
+branch  9 taken 100%
+branch 10 never executed
+branch 11 never executed
+        1:   73:    printf("The player drew 2 treasure cards\n");
+call    0 returned 100%
+        1:   74:    printf("TEST 3 PASSED\n");
+call    0 returned 100%
+        -:   75:  } else {
+    #####:   76:    printf("TEST 3 FAILED\n");
+call    0 never executed
+    #####:   77:    passed = 1;
+    #####:   78:    failed++;
+        -:   79:  }
+        -:   80:  
+        -:   81:  
+        1:   82:  if (passed == 0)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   83:    printf("\n3 of 3 tests passed.\n\n");
+call    0 never executed
+        -:   84:  else
+        1:   85:    printf("\n%d of 3 tests failed.\n\n", failed);
+call    0 returned 100%
+        1:   86:  return 0;
+        -:   87:}
+
+SMITHY cart test:
+
+TEST 1: deck/hand counts match BEFORE playing Smithy
+Test hand count: 5
+Control hand count: 5
+Test deck count: 5
+Control deck count: 5
+TEST 1 PASSED
+
+TEST 2: deck/hand counts match AFTER playing Smithy
+Test hand count: 8
+Control hand count: 7
+Test deck count: 1
+Control hand count: 2
+TEST 2 FAILED
+
+1 out of 2 tests failed
+
+File 'cardtest2.c'
+Lines executed:87.18% of 39
+Branches executed:80.00% of 10
+Taken at least once:40.00% of 10
+Calls executed:84.21% of 19
+Creating 'cardtest2.c.gcov'
+
+        -:    0:Source:cardtest2.c
+        -:    0:Graph:cardtest2.gcno
+        -:    0:Data:cardtest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/******************************************************************
+        -:    2:*  Name: John Carrabino
+        -:    3:*  Class: CS362
+        -:    4:*  Card Tested: Smithy
+        -:    5:******************************************************************/
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include "interface.h"
+        -:   10:#include <string.h>
+        -:   11:#include <stdio.h>
+        -:   12:#include <assert.h>
+        -:   13:#include "rngs.h"
+        -:   14:#include <stdlib.h>
+        -:   15:
+function main called 1 returned 100% blocks executed 82%
+        1:   16:int main() {
+        1:   17:  int passed = 0;
+        1:   18:  int failed = 0;
+        1:   19:  int player1 = 0;
+        1:   20:  int position = 0;
+        1:   21:  int choice1 = 0;
+        1:   22:  int choice2 = 0;
+        1:   23:  int choice3 = 0;
+        1:   24:  int bonus = 0;
+        1:   25:  int k[10] = {smithy, adventurer, village, mine, minion, steward, treasure_map, council_room, feast, gardens};
+        -:   26:  struct gameState game, test;
+        1:   27:  initializeGame(2, k, 1000, &game);
+call    0 returned 100%
+        -:   28:
+        1:   29:  printf("\nSMITHY cart test:\n");
+call    0 returned 100%
+        -:   30:
+        1:   31:  memcpy(&test, &game, sizeof(struct gameState));
+        1:   32:  printf("\nTEST 1: deck/hand counts match BEFORE playing Smithy\n");
+call    0 returned 100%
+        1:   33:  printf("Test hand count: %d\n", test.handCount[player1]);
+call    0 returned 100%
+        1:   34:  printf("Control hand count: %d\n", game.handCount[player1]);
+call    0 returned 100%
+        1:   35:  printf("Test deck count: %d\n", test.deckCount[player1]);
+call    0 returned 100%
+        1:   36:  printf("Control deck count: %d\n", game.deckCount[player1]);
+call    0 returned 100%
+        1:   37:  if (test.handCount[player1] == game.handCount[player1] && test.deckCount[player1] == game.deckCount[player1])
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:   38:    printf("TEST 1 PASSED\n");
+call    0 returned 100%
+        -:   39:  else {
+    #####:   40:    printf("TEST 1 FAILEDn");
+call    0 never executed
+    #####:   41:    passed = 1;
+    #####:   42:    failed++;
+        -:   43:  }
+        -:   44:  
+        -:   45:  
+        1:   46:  printf("\nTEST 2: deck/hand counts match AFTER playing Smithy\n");
+call    0 returned 100%
+        1:   47:  cardEffect(smithy, choice1, choice2, choice3, &test, position, &bonus);
+call    0 returned 100%
+        1:   48:  int cards = 3;
+        -:   49:
+        1:   50:  printf("Test hand count: %d\n", test.handCount[player1]);
+call    0 returned 100%
+        1:   51:  printf("Control hand count: %d\n", game.handCount[player1] + cards - 1);
+call    0 returned 100%
+        1:   52:  printf("Test deck count: %d\n", test.deckCount[player1]);
+call    0 returned 100%
+        1:   53:  printf("Control hand count: %d\n", game.deckCount[player1] - cards);
+call    0 returned 100%
+        1:   54:  if (test.handCount[player1] == game.handCount[player1] + cards - 1 && test.deckCount[player1] == game.deckCount[player1] - cards)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+branch  2 never executed
+branch  3 never executed
+    #####:   55:    printf("TEST 2 PASSED\n");
+call    0 never executed
+        -:   56:  else {
+        1:   57:    printf("TEST 2 FAILED\n");
+call    0 returned 100%
+        1:   58:    passed = 1;
+        1:   59:    failed++;
+        -:   60:  }
+        1:   61:  if (passed == 0)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   62:    printf("\n%d out of 2 tests passed\n\n", 2 - failed);
+call    0 never executed
+        -:   63:  else
+        1:   64:    printf("\n%d out of 2 tests failed\n\n", failed);
+call    0 returned 100%
+        1:   65:  return 0;
+        -:   66:}
+
+VILLAGE Card Test:
+
+TEST 1: Hand/Deck counts BEFORE playing Village Card
+Test hand count: 5
+Control hand count: 5
+Test deck count: 5
+Control deck count: 5
+Test hand/deck counts match actual counts
+TEST 1 PASSED
+
+TEST 2: Action count BEFORE playing Village Card
+Test action count: 1
+Control action count: 1
+Test action count matches Control count
+TEST 2 PASSED
+
+TEST 3: Hand/Deck counts AFTER playing Village Card
+Test hand count: 5
+Control hand count: 5
+Test deck count: 4
+Control deck count: 4
+Test hand/deck counts match actual counts
+TEST 3 PASSED
+
+TEST 4: Action counts AFTER playing Village CardTest action count: 4
+Control action count: 3
+Test action count DOES NOT match actual action count
+TEST 4 FAILED
+
+3 out of 4 tests passed
+
+File 'cardtest3.c'
+Lines executed:77.94% of 68
+Branches executed:100.00% of 14
+Taken at least once:50.00% of 14
+Calls executed:75.68% of 37
+Creating 'cardtest3.c.gcov'
+
+        -:    0:Source:cardtest3.c
+        -:    0:Graph:cardtest3.gcno
+        -:    0:Data:cardtest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/******************************************************************
+        -:    2:*  Name: John Carrabino
+        -:    3:*  Class: CS362
+        -:    4:*  Card Tested: Village
+        -:    5:******************************************************************/
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include "interface.h"
+        -:   10:#include <string.h>
+        -:   11:#include <stdio.h>
+        -:   12:#include <assert.h>
+        -:   13:#include "rngs.h"
+        -:   14:#include <stdlib.h>
+        -:   15:
+function main called 1 returned 100% blocks executed 76%
+        1:   16:int main() {
+        1:   17:  int passed = 0;
+        1:   18:  int failed = 0;
+        1:   19:  int testCount = 0; 
+        1:   20:  int player1 = 0;
+        1:   21:  int position = 0;
+        1:   22:  int choice1 = 0;
+        1:   23:  int choice2 = 0;
+        1:   24:  int choice3 = 0;
+        1:   25:  int bonus = 0;
+        1:   26:  int cards = 1;
+        1:   27:  int k[10] = {smithy, adventurer, village, mine, minion, steward, treasure_map, council_room, feast, gardens};
+        -:   28:  struct gameState game, test;
+        1:   29:  initializeGame(2, k, 100, &game);
+call    0 returned 100%
+        -:   30:
+        1:   31:  printf("\nVILLAGE Card Test:\n");
+call    0 returned 100%
+        1:   32:  memcpy(&test, &game, sizeof(struct gameState));
+        1:   33:  testCount++;
+        1:   34:  printf("\nTEST 1: Hand/Deck counts BEFORE playing Village Card\n");
+call    0 returned 100%
+        1:   35:  printf("Test hand count: %d\n", test.handCount[player1]);
+call    0 returned 100%
+        1:   36:  printf("Control hand count: %d\n", game.handCount[player1]);
+call    0 returned 100%
+        1:   37:  printf("Test deck count: %d\n", test.deckCount[player1]);
+call    0 returned 100%
+        1:   38:  printf("Control deck count: %d\n", game.deckCount[player1]);
+call    0 returned 100%
+        -:   39:  
+        -:   40:  //Test 1: Initial Hand/Deck Counts
+        1:   41:  if (test.handCount[player1] == game.handCount[player1] && test.deckCount[player1] == game.deckCount[player1]){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:   42:    printf("Test hand/deck counts match actual counts\n");
+call    0 returned 100%
+        1:   43:    printf("TEST 1 PASSED\n");
+call    0 returned 100%
+        -:   44:  }  else {
+    #####:   45:    printf("Test hand/deck counts DO NOT match actual counts\n");
+call    0 never executed
+    #####:   46:    printf("TEST 1 FAILED\n");
+call    0 never executed
+    #####:   47:    passed = 1;
+    #####:   48:    failed++;
+        -:   49:  }
+        1:   50:  testCount++;
+        -:   51:  
+        -:   52:  //Test 2:Initial Action count
+        1:   53:  printf("\nTEST 2: Action count BEFORE playing Village Card\n");
+call    0 returned 100%
+        1:   54:  printf("Test action count: %d\n", test.numActions);
+call    0 returned 100%
+        1:   55:  printf("Control action count: %d\n", game.numActions);
+call    0 returned 100%
+        1:   56:  if (test.numActions == game.numActions){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   57:    printf("Test action count matches Control count\n");
+call    0 returned 100%
+        1:   58:    printf("TEST 2 PASSED\n");
+call    0 returned 100%
+        -:   59:  } else {
+    #####:   60:    printf("Test action count DOES NOT match actual action count\n");
+call    0 never executed
+    #####:   61:    printf("TEST 2 FAILED\n");
+call    0 never executed
+    #####:   62:    passed = 1;
+    #####:   63:    failed++;
+        -:   64:  }
+        -:   65:  
+        -:   66:  //Test 3: Hand/Deck counts AFTER playing Village Card
+        1:   67:  cardEffect(village, choice1, choice2, choice3, &test, position, &bonus);
+call    0 returned 100%
+        1:   68:  testCount++;
+        1:   69:  printf("\nTEST 3: Hand/Deck counts AFTER playing Village Card\n");
+call    0 returned 100%
+        1:   70:  printf("Test hand count: %d\n", test.handCount[player1]);
+call    0 returned 100%
+        1:   71:  printf("Control hand count: %d\n", game.handCount[player1] + cards - 1);
+call    0 returned 100%
+        1:   72:  printf("Test deck count: %d\n", test.deckCount[player1]);
+call    0 returned 100%
+        1:   73:  printf("Control deck count: %d\n", game.deckCount[player1] - cards);
+call    0 returned 100%
+        1:   74:  if (test.handCount[player1] == game.handCount[player1] + cards - 1 && test.deckCount[player1] == game.deckCount[player1] - cards){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:   75:    printf("Test hand/deck counts match actual counts\n");
+call    0 returned 100%
+        1:   76:    printf("TEST 3 PASSED\n");
+call    0 returned 100%
+        -:   77:  }  else {
+    #####:   78:    printf("Test hand/deck counts DO NOT match actual counts\n");
+call    0 never executed
+    #####:   79:    printf("TEST 3 FAILED\n");
+call    0 never executed
+    #####:   80:    passed = 1;
+    #####:   81:    failed++;
+        -:   82:  }
+        -:   83:  
+        -:   84:  //Test 4: Action count AFTER playing village Card. 
+        1:   85:  testCount++;
+        1:   86:  printf("\nTEST 4: Action counts AFTER playing Village Card");
+call    0 returned 100%
+        1:   87:  printf("Test action count: %d\n", test.numActions);
+call    0 returned 100%
+        1:   88:  printf("Control action count: %d\n", game.numActions + 2);
+call    0 returned 100%
+        1:   89:  if (test.numActions == game.numActions + 2){
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   90:    printf("Test action count matches actual count\n");
+call    0 never executed
+    #####:   91:    printf("TEST 4 PASSED\n");
+call    0 never executed
+        -:   92:  }  else {
+        1:   93:    printf("Test action count DOES NOT match actual action count\n");
+call    0 returned 100%
+        1:   94:    printf("TEST 4 FAILED\n");
+call    0 returned 100%
+        1:   95:    passed = 1;
+        1:   96:    failed++;
+        -:   97:  }
+        -:   98:
+        1:   99:  if (passed == 0)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:  100:    printf("\n%d out of %d tests passed\n\n", testCount - failed, testCount);
+call    0 never executed
+        -:  101:  else
+        1:  102:    printf("\n%d out of %d tests passed\n\n", testCount - failed, testCount);
+call    0 returned 100%
+        1:  103:  return 0;
+        -:  104:}
+
+STEWARD card test:
+
+TEST 1: Steward Choice 1, +2 cards to hand
+Test hand count BEFORE Steward: 5
+Test hand count AFTER Steward: 6
+Steward choice 1 added two cards to players hand
+TEST 1 PASSED
+
+TEST 2: Steward Choice 2, +2 coins
+Test coin count BEFORE Steward: 4
+Test coin count AFTER Steward: 6
+Steward choice 2 added 2 coins to player 1
+TEST 2 PASSED
+
+TEST 3: Steward Choice 3, -2 cards from hand
+Test hand count BEFORE steward is 5
+Test hand count AFTER steward is 2
+Steward choice 3 removed 2 cards from player's hand
+TEST 3 PASSED
+
+3 out of 3 tests passed
+
+File 'cardtest4.c'
+Lines executed:82.09% of 67
+Branches executed:100.00% of 8
+Taken at least once:50.00% of 8
+Calls executed:76.67% of 30
+Creating 'cardtest4.c.gcov'
+
+        -:    0:Source:cardtest4.c
+        -:    0:Graph:cardtest4.gcno
+        -:    0:Data:cardtest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/******************************************************************
+        -:    2:*  Name: John Carrabino
+        -:    3:*  Class: CS362
+        -:    4:*  Card Tested: Steward
+        -:    5:******************************************************************/
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include "interface.h"
+        -:   10:#include <string.h>
+        -:   11:#include <stdio.h>
+        -:   12:#include <assert.h>
+        -:   13:#include "rngs.h"
+        -:   14:#include <stdlib.h>
+        -:   15:
+function main called 1 returned 100% blocks executed 74%
+        1:   16:int main() {
+        1:   17:  int passed = 0;
+        1:   18:  int  failedTests = 0;
+        1:   19:  int totalTests = 0;
+        1:   20:  int player1 = 0;
+        1:   21:  int position = 0;
+        1:   22:  int choice1 = 0;
+        1:   23:  int choice2 = 0;
+        1:   24:  int choice3 = 0;
+        1:   25:  int c1_after = 0;
+        1:   26:  int c1_before = 0;
+        1:   27:  int bonus = 0;
+        1:   28:  int k[10] = {smithy, adventurer, village, mine, minion, steward, treasure_map, council_room, feast, gardens};
+        -:   29:  struct gameState test1, test2, test3;
+        1:   30:  initializeGame(2, k, 100, &test1);
+call    0 returned 100%
+        1:   31:  initializeGame(2, k, 100, &test2);
+call    0 returned 100%
+        1:   32:  initializeGame(2, k, 100, &test3);
+call    0 returned 100%
+        1:   33:  memcpy(&test2, &test1, sizeof(struct gameState));
+        1:   34:  memcpy(&test3, &test1, sizeof(struct gameState));
+        -:   35:
+        1:   36:  printf("\nSTEWARD card test:\n");
+call    0 returned 100%
+        1:   37:  totalTests++;
+        -:   38:  
+        -:   39:  //int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
+        -:   40:  // choice1 == 1, +2 cards
+        -:   41:  // choice1 == 2, +2 coins
+        -:   42:  // choice1 == 3, -2 cards from hand
+        -:   43:  
+        1:   44:  printf("\nTEST 1: Steward Choice 1, +2 cards to hand\n");
+call    0 returned 100%
+        1:   45:  printf("Test hand count BEFORE Steward: %d\n", test1.handCount[player1]);
+call    0 returned 100%
+        1:   46:  c1_before = test1.handCount[player1];
+        1:   47:  choice1 = 1;
+        1:   48:  cardEffect(steward, choice1, choice2, choice3, &test1, position, &bonus);
+call    0 returned 100%
+        1:   49:  printf("Test hand count AFTER Steward: %d\n", test1.handCount[player1]);  
+call    0 returned 100%
+        1:   50:  c1_after = test1.handCount[player1];
+        -:   51:  // Actual hand count will increase by 1 since we discard the Steward card after plying it
+        1:   52:  if (c1_after - c1_before == 1){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   53:    printf("Steward choice 1 added two cards to players hand\n");
+call    0 returned 100%
+        1:   54:    printf("TEST 1 PASSED\n");  
+call    0 returned 100%
+        -:   55:  }
+        -:   56:  else {
+    #####:   57:    printf("Steward choice 1 DID NOT add two cards to players hand\n");
+call    0 never executed
+    #####:   58:    printf("TEST 1 FAILED\n");  
+call    0 never executed
+    #####:   59:    failedTests++;
+        -:   60:  }
+        -:   61:  
+        -:   62:  
+        1:   63:  printf("\nTEST 2: Steward Choice 2, +2 coins\n");
+call    0 returned 100%
+        1:   64:  totalTests++;
+        1:   65:  printf("Test coin count BEFORE Steward: %d\n", test2.coins);
+call    0 returned 100%
+        1:   66:  c1_before = test2.coins;
+        1:   67:  choice1 = 2;
+        1:   68:  cardEffect(steward, choice1, choice2, choice3, &test2, position, &bonus);
+call    0 returned 100%
+        1:   69:  printf("Test coin count AFTER Steward: %d\n", test2.coins);
+call    0 returned 100%
+        1:   70:  c1_after = c1_before + 2;
+        -:   71:  
+        1:   72:  if (test2.coins == c1_after){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   73:    printf("Steward choice 2 added 2 coins to player 1\n");
+call    0 returned 100%
+        1:   74:    printf("TEST 2 PASSED\n");  
+call    0 returned 100%
+        -:   75:  }
+        -:   76:  else {
+    #####:   77:    printf("Steward choice 2 DID NOT add 2 coins to player 1\n");
+call    0 never executed
+    #####:   78:    printf("TEST 2 FAILED\n");  
+call    0 never executed
+    #####:   79:    passed = 1;
+    #####:   80:    failedTests++;
+        -:   81:  }   
+        -:   82:  
+        1:   83:  printf("\nTEST 3: Steward Choice 3, -2 cards from hand\n");
+call    0 returned 100%
+        1:   84:  totalTests++;  
+        1:   85:  printf("Test hand count BEFORE steward is %d\n", test3.handCount[player1]);
+call    0 returned 100%
+        1:   86:  c1_before = test3.handCount[player1];
+        1:   87:  choice1 = 3;
+        1:   88:  cardEffect(steward, choice1, choice2, choice3, &test3, position, &bonus);
+call    0 returned 100%
+        1:   89:  printf("Test hand count AFTER steward is %d\n", test3.handCount[player1]);
+call    0 returned 100%
+        1:   90:  c1_after = test3.handCount[player1];  
+        -:   91:  // Actual hand count will decrease by 3 since we discard the Steward card after plying it
+        1:   92:  if (c1_before - c1_after == 3){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   93:    printf("Steward choice 3 removed 2 cards from player's hand\n");
+call    0 returned 100%
+        1:   94:    printf("TEST 3 PASSED\n");  
+call    0 returned 100%
+        -:   95:  } else {
+    #####:   96:    printf("Steward choice 3 DID NOT remove 2 cards from player's hand\n");
+call    0 never executed
+    #####:   97:    printf("TEST 3 FAILED\n");  
+call    0 never executed
+    #####:   98:    passed = 1;
+    #####:   99:    failedTests++;
+        -:  100:  }
+        -:  101:  
+        1:  102:  if (passed == 0)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:  103:    printf("\n%d out of 3 tests passed\n\n", totalTests - failedTests);
+call    0 returned 100%
+        -:  104:  else
+    #####:  105:    printf("\n%d out of 3 tests passed\n\n", totalTests - failedTests);
+call    0 never executed
+        1:  106:  return 0;
+        -:  107:}
