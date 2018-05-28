@@ -1,0 +1,62 @@
+        -:    0:Source:unittest3.c
+        -:    0:Graph:unittest3.gcno
+        -:    0:Data:unittest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/******************************************************************
+        -:    2:*  Name: John Carrabino
+        -:    3:*  Class: CS362
+        -:    4:*  Function Tested: buyCard()
+        -:    5:******************************************************************/
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include <stdio.h>
+        -:   10:#include <assert.h>
+        -:   11:
+function main called 1 returned 100% blocks executed 85%
+        1:   12:int main() {
+        1:   13:  int PASS = 0;
+        1:   14:  int test1 = 0;
+        1:   15:  int playerOne = 1;
+        -:   16:  
+        -:   17:  // Give player enough money to buy silver
+        1:   18:  int treasure = 6;
+        1:   19:  int k[10] = {adventurer, embargo, village, minion, mine, cutpurse, sea_hag, tribute, smithy, great_hall};
+        -:   20:  struct gameState game;
+        -:   21:  
+        1:   22:  initializeGame(2, k, 100, &game);
+call    0 returned 100%
+        -:   23:
+        -:   24:  //Start test
+        1:   25:  printf("\nUNIT TEST 3: buyCard()\n");
+call    0 returned 100%
+        1:   26:  game.whoseTurn = playerOne;
+        1:   27:  game.coins = treasure;
+        1:   28:  test1 = buyCard(silver, &game);
+call    0 returned 100%
+        1:   29:  printf("buyCard() TEST 1: Buy 1 silver\n");
+call    0 returned 100%
+        1:   30:  if (test1 == 0){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   31:    printf("buyCard() Returned 0, Player 1 successfully bought silver.\n");
+call    0 returned 100%
+        1:   32:    printf("buyCard() TEST 1 PASSED\n");
+call    0 returned 100%
+        -:   33:  } else {
+    #####:   34:    PASS = 1;
+    #####:   35:    printf("TEST 1 FAILED\n");
+call    0 never executed
+        -:   36:  }
+        -:   37:  
+        1:   38:  if (PASS == 0)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   39:    printf("buyCard() UNIT TEST SUCCESSFULLY COMPLETED\n\n");
+call    0 returned 100%
+        -:   40:  else 
+    #####:   41:    printf("buyCard() UNIT TEST FAILED\n\n");
+call    0 never executed
+        1:   42:  return 0;
+        -:   43:}
